@@ -1,0 +1,75 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+    - { resource: services.yml }
+    - { resource: database.php }
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    locale: en
+    handyman_file_dir: /vagrant/GSGroup/Filutv
+    handyman_export_ext: BYT
+    handyman_export_schema_file: OrdersAndRegistrations.xsd
+    bkbygg_user_id_to_use_when_not_found: 10
+    handyman_document_url: http://handyman01a.adm.bgo/document/download/
+    # 3978 = HM Handyman
+    bkbygg_handyman_user: 3978
+    # List of users Agresso IDs and their user group, used for the xml building list
+    # Driftsenehet Nor 16, syd 15, vest 14
+    user_agressoid_in_groupid:
+        22495: 16
+        17035: 16
+        114564: 16
+        13939: 16
+        45268: 16
+        88193: 16
+        113155: 16
+        58715: 16
+        23347: 16
+        39831: 15
+        43668: 15
+        34074: 15
+        34730: 15
+        17703: 15
+        25539: 14
+        13410: 14
+        29994: 14
+        34865: 14
+        90012: 14
+
+framework:
+    #esi: ~
+    #translator: { fallbacks: ['%locale%'] }
+    secret: '%secret%'
+    router:
+        resource: '%kernel.project_dir%/app/config/routing.yml'
+        strict_requirements: ~
+    form: ~
+    csrf_protection: ~
+    validation: { enable_annotations: true }
+    #serializer: { enable_annotations: true }
+    default_locale: '%locale%'
+    trusted_hosts: ~
+    session:
+        # https://symfony.com/doc/current/reference/configuration/framework.html#handler-id
+        handler_id: session.handler.native_file
+        save_path: '/var/lib/php/sessions'
+    fragments: ~
+    http_method_override: true
+    assets: ~
+    php_errors:
+        log: true
+
+# Twig Configuration
+twig:
+    debug: '%kernel.debug%'
+    strict_variables: '%kernel.debug%'
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: '%mailer_transport%'
+    host: '%mailer_host%'
+    username: '%mailer_user%'
+    password: '%mailer_password%'
+    spool: { type: memory }
